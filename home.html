@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Facebook Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f0f2f5;
+    }
+    .navbar {
+      background: #1877f2;
+      padding: 15px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+    }
+    .navbar a {
+      color: white;
+      margin-left: 10px;
+      text-decoration: none;
+    }
+    .container {
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 60px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+    .post {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #1877f2;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body onload="loadName()">
+  <div class="navbar">
+    <div>facebook</div>
+    <div>
+      <span id="welcomeName"></span>
+      <a href="messages.html">Messages</a>
+      <a href="friends.html">Find Friends</a>
+      <a href="login.html" onclick="logout()">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>What's on your mind?</h2>
+    <textarea id="status"></textarea><br>
+    <button onclick="post()">Post</button>
+
+    <div id="feed"></div>
+  </div>
+
+  <script>
+    function loadName() {
+      const name = localStorage.getItem('fb_name');
+      document.getElementById('welcomeName').textContent = Hi, ${name};
+    }
+
+    function post() {
+      const status = document.getElementById('status').value;
+      const name = localStorage.getItem('fb_name');
+      if (status.trim()) {
+        const feed = document.getElementById('feed');
+        const postBox = <div class="post"><strong>${name}</strong><p>${status}</p></div>;
+        feed.innerHTML = postBox + feed.innerHTML;
+        document.getElementById('status').value = '';
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('fb_name');
+    }
+  </script>
+</body>
+</html>
